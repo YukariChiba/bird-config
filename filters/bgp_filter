@@ -2,6 +2,9 @@ function bgp_export_filter(string arg_network; string arg_peer_type) {
   if arg_peer_type = "privpeer" then {
     bgp_community.add((65535, 65281));
   }
+  if arg_network = "iana" then {
+    bgp_path.delete([64512..65534, 4200000000..4294967294]);
+  }
   if !is_self_net(arg_network) && !community_ptype_allow(arg_peer_type) then return false;
   if ! bgp_base_export_filter() then {
     return false;

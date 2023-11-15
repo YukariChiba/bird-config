@@ -1,0 +1,50 @@
+define CHINA_ASNS = [
+    4134,  #China Telecom Backbone
+    4809,  #China Telecom Next Generation Carrier Network
+#    36678, #CTGNET
+    4837,  #China Unicom Backbone
+    9929,  #China Netcom Backbone
+#   10099, #China Unicom Global
+    9808,  #China Mobile
+    24059, #CMNET2/CMIM2
+    24311, #China Mobile IPv6 network
+#    58453, #China Mobile International Limited
+    9394,  #China TieTong Telecommunications
+    4538,  #China Education and Research Network
+    23911, #China Next Generation Internet Beijing IX
+    23910, #China Next Generation Internet CERNET2
+    7497,  #China Science and Technology Network
+    7641,  #China Broadcasting TV Net
+    37965, #Pacnet Business Solutions LTD
+    38345, #Internet Domain Name System Beijing Engineering Resrarch Center Ltd
+    24151, #China Internet Network Infomation Center
+    24445, #Henan Mobile Communications Co.,Ltd
+    4058,  #CITIC Telecom International CPC Limited
+    7640,  #China International Trust & Investment Corporation Management Information Center
+    4847,  #China Networks Inter-Exchange
+    17428, #21Vianet.Co.,Ltd
+    142067..142106, #CERNET AS Block for FITI Nodes
+    142650..146745, #CERNET AS Block for FITI Slices
+    55532,  #Elsevier
+    714,  #Apple
+    136907,  #Huawei Hong Kong
+    24355,  #CERNET2 IX at University of Electronic Science and Technology of China
+    56046,  # NanJing XinFeng
+    24424,  # Google CN
+    24355   # UESTC
+];
+
+define CHINA_ROUTES = [
+    13.107.136.0/24+,
+    13.107.138.0/24+,
+    114.114.112.0/21+
+];
+
+function is_chnroute(){
+  if bgp_path ~ [= * CHINA_ASNS * =] then {
+    return true;
+  }
+  if net ~ CHINA_ROUTES then {
+    return true;
+  }
+}
