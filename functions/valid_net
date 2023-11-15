@@ -1,4 +1,4 @@
-function is_valid_net()
+function is_valid_net_iana()
 prefix set martians4;
 prefix set martians6;
 {
@@ -64,7 +64,7 @@ prefix set martians6;
         return true;
 }
 
-function is_valid_net42()
+function is_valid_net_dn42()
 prefix set martians4;
 prefix set martians6;
 {
@@ -95,7 +95,7 @@ prefix set martians6;
 }
 
 
-function is_valid_net42_all()
+function is_valid_net_dn42_all()
 prefix set martians4;
 prefix set martians6;
 {
@@ -122,5 +122,9 @@ prefix set martians6;
   }
 
   return false;
+}
 
+function is_valid_net(string arg_network) {
+  if arg_network = "dn42" then return is_valid_net_dn42();
+  if arg_network = "iana" then return is_valid_net_iana();
 }

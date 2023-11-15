@@ -1,0 +1,30 @@
+function bgp_export_filter(string arg_network; string arg_peer_type) {
+  if arg_peer_type = "privpeer" || arg_peer_type = "ixpeer" then {
+    bgp_community.add((65535, 65281));
+  }
+  if !is_self_net(arg_network) && !community_ptype_allow(arg_peer_type) then return false;
+  if ! bgp_base_export_filter() then {
+    return false;
+  }
+  if is_valid_net(arg_network) && source ~ [ RTS_BGP, RTS_STATIC ] then {
+    community_export(arg_network);
+    return true;
+  }
+  return false;
+}
+
+function bgp_import_filter(string arg_network; string arg_peer_type) {
+  if arg_peer_type = "privpeer" || arg_peer_type = "ixpeer" then {
+    if bgp_path.len != 1 then {
+      return false;
+    }
+  }
+  community_import(arg_network, arg_peer_type);
+  if ! bgp_base_import_filter() then {
+    return false;
+  }
+  if is_valid_net(arg_network) && !is_self_net(arg_network) && !roa_ck(arg_network) then {
+    return true;
+  }
+  return false;
+};

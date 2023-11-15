@@ -6,77 +6,51 @@ template bgp tpl_bgp_iana_base {
   ipv6 { table bgpianatable6; import none; export none; };
 }
 
-template bgp tpl_bgp_iana_downstream_4 from tpl_bgp_iana_base {
-  ipv4 {
-    import where iana_downstream_import_filter();
-    export where iana_downstream_export_filter();
-  };
-}
-
-template bgp tpl_bgp_iana_downstream_6 from tpl_bgp_iana_base {
-  ipv6 {
-    import where iana_downstream_import_filter();
-    export where iana_downstream_export_filter();
-  };
-}
- 
 template bgp tpl_bgp_iana_downstream from tpl_bgp_iana_base {
   ipv4 {
-    import where iana_downstream_import_filter();
-    export where iana_downstream_export_filter();
+    extended next hop;
+    import where bgp_import_filter("iana", "downstream");
+    export where bgp_export_filter("iana", "downstream");
   };
   ipv6 {
-    import where iana_downstream_import_filter();
-    export where iana_downstream_export_filter();
-  };
-}
-template bgp tpl_bgp_iana_peer_4 from tpl_bgp_iana_base {
-  ipv4 {
-    import where iana_peer_import_filter();
-    export where iana_peer_export_filter();
+    import where bgp_import_filter("iana", "downstream");
+    export where bgp_export_filter("iana", "downstream");
   };
 }
 
-template bgp tpl_bgp_iana_peer_6 from tpl_bgp_iana_base {
+template bgp tpl_bgp_iana_ixpeer from tpl_bgp_iana_base {
+  ipv4 {
+    extended next hop;
+    import where bgp_import_filter("iana", "ixpeer");
+    export where bgp_export_filter("iana", "ixpeer");
+  };
   ipv6 {
-    import where iana_peer_import_filter();
-    export where iana_peer_export_filter();
+    import where bgp_import_filter("iana", "ixpeer");
+    export where bgp_export_filter("iana", "ixpeer");
   };
 }
 
-template bgp tpl_bgp_iana_peer from tpl_bgp_iana_base {
+template bgp tpl_bgp_iana_privpeer from tpl_bgp_iana_base {
   ipv4 {
-    import where iana_peer_import_filter();
-    export where iana_peer_export_filter();
+    extended next hop;
+    import where bgp_import_filter("iana", "privpeer");
+    export where bgp_export_filter("iana", "privpeer");
   };
   ipv6 {
-    import where iana_peer_import_filter();
-    export where iana_peer_export_filter();
+    import where bgp_import_filter("iana", "privpeer");
+    export where bgp_export_filter("iana", "privpeer");
   };
 }
 
 template bgp tpl_bgp_iana_transit from tpl_bgp_iana_base {
-  ipv4 {  
-    import where iana_import_filter();
-    export where iana_export_filter();
-  };
-  ipv6 {
-    import where iana_import_filter();
-    export where iana_export_filter();
-  };
-}
-
-template bgp tpl_bgp_iana_transit_4 from tpl_bgp_iana_base {
   ipv4 {
-    import where iana_import_filter();
-    export where iana_export_filter();
+    extended next hop;
+    import where bgp_import_filter("iana", "transit");
+    export where bgp_export_filter("iana", "transit");
   };
-}
-
-template bgp tpl_bgp_iana_transit_6 from tpl_bgp_iana_base {
   ipv6 {
-    import where iana_import_filter();
-    export where iana_export_filter();
+    import where bgp_import_filter("iana", "transit");
+    export where bgp_export_filter("iana", "transit");
   };
 }
 

@@ -1,4 +1,4 @@
-function is_self_net42() {
+function is_self_net_dn42() {
   if net.type = NET_IP4 then {
     return net ~ OWNNET42SET;
   }
@@ -9,7 +9,7 @@ function is_self_net42() {
   return false;
 }
 
-function is_self_net() { 
+function is_self_net_iana() { 
   #if net.type = NET_IP4 then {  
   #  return net ~ OWNNETSET;
   #}
@@ -18,4 +18,9 @@ function is_self_net() {
     return net ~ OWNNETSETv6; 
   }
   return false;
+}
+
+function is_self_net(string arg_network) {
+  if arg_network = "dn42" then return is_self_net_dn42();
+  if arg_network = "iana" then return is_self_net_iana();
 }
