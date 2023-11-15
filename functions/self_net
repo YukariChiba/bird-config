@@ -1,0 +1,21 @@
+function is_self_net42() {
+  if net.type = NET_IP4 then {
+    return net ~ OWNNET42SET;
+  }
+
+  if net.type = NET_IP6 then {
+    return net ~ OWNNET42SETv6;
+  }
+  return false;
+}
+
+function is_self_net() { 
+  #if net.type = NET_IP4 then {  
+  #  return net ~ OWNNETSET;
+  #}
+
+  if net.type = NET_IP6 then {
+    return net ~ OWNNETSETv6; 
+  }
+  return false;
+}

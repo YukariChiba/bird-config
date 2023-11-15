@@ -1,0 +1,12 @@
+protocol bfd {
+      interface "wg*" {
+              min rx interval 100 ms;
+              min tx interval 100 ms;
+              idle tx interval 300 ms;
+              multiplier 10;
+      };
+      multihop {
+              interval 800 ms;
+              multiplier 10;
+      };
+}

@@ -1,0 +1,26 @@
+function bgp_base_filter() {
+  # Check too long length
+  if bgp_path.len > 64 then {
+    return false;
+  }
+  return true;
+}
+
+function bgp_base_import_filter() {
+  if ! bgp_base_filter() then {
+    return false;
+  }
+  # Check 0 length for import routes
+  if bgp_path.len < 1 then {
+    return false;
+  }
+  return true;
+};
+
+function bgp_base_export_filter() {
+  if ! bgp_base_filter() then {
+    return false;
+  }
+  return true;
+};
+

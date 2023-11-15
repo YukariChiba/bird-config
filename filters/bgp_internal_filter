@@ -1,0 +1,13 @@
+function ibgp_import_filter() {
+  if source ~ [ RTS_BGP, RTS_STATIC ] then {
+    return true;
+  }
+  return false;
+};
+
+function ibgp_export_filter() {
+  if source ~ [ RTS_BGP, RTS_STATIC ] then { 
+    return true; 
+  }
+  return false;
+};

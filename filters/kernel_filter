@@ -1,0 +1,40 @@
+function kernel_base_filter() {
+    if source = RTS_STATIC && net = 0.0.0.0/0 then reject;
+    if source = RTS_STATIC && net = ::/0 then reject;
+    if net.type = NET_IP4 then {
+        krt_prefsrc = OWNIP42;
+    }
+    if net.type = NET_IP6 then {
+        if is_valid_net42_all() then {
+          krt_prefsrc = OWNIP42v6;
+        }
+        else {
+          krt_prefsrc = OWNIPv6;
+        }
+    }
+}
+
+function kernel_bgp_filter() {
+    kernel_base_filter(); 
+    if net.type = NET_IP4 then {
+        if !is_valid_net42() && net != 0.0.0.0/0 then reject;
+    }
+    if net.type = NET_IP6 then {
+        if !is_valid_net() && !is_valid_net42() && net != ::/0 && net != fd00::/8 then reject;
+    }
+    accept;
+}
+
+function kernel_igp_filter() {
+    kernel_base_filter();
+    if net.type = NET_IP6_SADR then {
+      if (net.dst = ::/0 || net.dst = 0.0.0.0/0) then {
+        if ACCEPT_IGP_DEFAULT != 1 then reject;
+      }
+    } else {
+      if (net = ::/0 || net = 0.0.0.0/0) then {
+        if ACCEPT_IGP_DEFAULT != 1 then reject;
+      }
+    }
+    accept;
+}

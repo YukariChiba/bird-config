@@ -1,0 +1,13 @@
+# reserved values
+255	local
+254	main
+253	default
+0	unspec
+
+# local
+1	bgp.iana
+2	bgp.dn42
+4	chnroute
+6	igp
+10	bgp.dn42.mcast
+20	block

@@ -1,0 +1,12 @@
+define OWNIP42 = 172.23.33.1;
+define OWNIP42v6 = fdd0:5ad7:5f56::;
+
+define OWNIPv6 = 2a0d:2580:ff0c::;
+
+define REGION = 52;
+
+define CHNROUTEIF = "ppp0";
+define CHNROUTEGW = 0.0.0.0;
+define CHNROUTEGW6 = ::;
+
+define ACCEPT_IGP_DEFAULT = 0;

@@ -1,0 +1,135 @@
+define COMM_PTYPE_DOWNSTREAM_IANA = (OWNAS, 4, 1);
+define COMM_PTYPE_DOWNSTREAM_DN42 = (OWNAS42, 4, 1);
+define COMM_PTYPE_UPSTREAM_IANA = (OWNAS, 4, 2);
+define COMM_PTYPE_UPSTREAM_DN42 = (OWNAS42, 4, 2);
+define COMM_PTYPE_PRIVPEER_IANA = (OWNAS, 4, 3);
+define COMM_PTYPE_PRIVPEER_DN42 = (OWNAS42, 4, 3);
+define COMM_PTYPE_IXPEER_IANA = (OWNAS, 4, 4);
+define COMM_PTYPE_IXPEER_DN42 = (OWNAS42, 4, 4);
+define COMM_PTYPE_TRANSIT_IANA = (OWNAS, 4, 5);
+define COMM_PTYPE_TRANSIT_DN42 = (OWNAS42, 4, 5);
+
+define COMM_PTYPE_ALL_DN42 = [
+  COMM_PTYPE_DOWNSTREAM_DN42,
+  COMM_PTYPE_UPSTREAM_DN42,
+  COMM_PTYPE_PRIVPEER_DN42,
+  COMM_PTYPE_IXPEER_DN42,
+  COMM_PTYPE_TRANSIT_DN42
+];
+define COMM_PTYPE_ALL_IANA = [
+  COMM_PTYPE_DOWNSTREAM_IANA,
+  COMM_PTYPE_UPSTREAM_IANA,
+  COMM_PTYPE_PRIVPEER_IANA,
+  COMM_PTYPE_IXPEER_IANA,
+  COMM_PTYPE_TRANSIT_IANA
+];
+
+define COMM_PREF_100_IANA = (OWNAS, 2, 1);
+define COMM_PREF_200_IANA = (OWNAS, 2, 2);
+define COMM_PREF_0_IANA = (OWNAS, 2, 3);
+define COMM_PREF_ALL_IANA = [
+  COMM_PREF_100_IANA,
+  COMM_PREF_200_IANA,
+  COMM_PREF_0_IANA
+];
+
+define COMM_PREF_100_DN42 = (OWNAS42, 2, 1);
+define COMM_PREF_200_DN42 = (OWNAS42, 2, 2);
+define COMM_PREF_0_DN42 = (OWNAS42, 2, 3);
+define COMM_PREF_ALL_DN42 = [
+  COMM_PREF_100_DN42,
+  COMM_PREF_200_DN42,
+  COMM_PREF_0_DN42
+];
+
+function community_import_dn42(){
+  if COMM_PREF_100_DN42 ~ bgp_large_community then {
+    bgp_local_pref = 100;
+  }
+  if COMM_PREF_200_DN42 ~ bgp_large_community then {
+    bgp_local_pref = 200;
+  }
+  if COMM_PREF_0_DN42 ~ bgp_large_community then {
+    bgp_local_pref = 0;
+  }
+}
+
+function community_import_iana(){
+  if COMM_PREF_100_IANA ~ bgp_large_community then {
+    bgp_local_pref = 100;
+  }
+  if COMM_PREF_200_IANA ~ bgp_large_community then {
+    bgp_local_pref = 200;
+  }
+  if COMM_PREF_0_IANA ~ bgp_large_community then {
+    bgp_local_pref = 0;
+  }
+}
+
+function community_import_downstream_dn42(){
+  community_import_dn42();
+  bgp_large_community.add(COMM_PTYPE_DOWNSTREAM_DN42);
+}
+
+function community_import_downstream_iana(){
+  community_import_iana();
+  bgp_large_community.add(COMM_PTYPE_DOWNSTREAM_IANA);
+}
+
+function community_import_transit_dn42(){
+  community_import_dn42();
+  bgp_large_community.add(COMM_PTYPE_TRANSIT_DN42);
+}
+
+function community_import_transit_iana(){
+  community_import_iana();
+  bgp_large_community.add(COMM_PTYPE_TRANSIT_IANA);
+}
+
+function community_import_upstream_dn42(){
+  community_import_dn42();
+  bgp_large_community.add(COMM_PTYPE_UPSTREAM_DN42);
+}
+
+function community_import_upstream_iana(){
+  community_import_iana();
+  bgp_large_community.add(COMM_PTYPE_UPSTREAM_IANA);
+}
+
+function community_export_dn42(){
+  bgp_large_community.delete(COMM_PTYPE_ALL_DN42);
+}
+
+function community_export_iana(){
+  bgp_large_community.delete(COMM_PTYPE_ALL_IANA);  
+}
+
+function community_ptype_allow_downstream(){
+  return true;
+}
+
+function community_ptype_allow_transit(){
+  if COMM_PTYPE_IXPEER_DN42 ~ bgp_large_community then return false;
+  if COMM_PTYPE_IXPEER_IANA ~ bgp_large_community then return false;
+  if COMM_PTYPE_PRIVPEER_DN42 ~ bgp_large_community then return false;
+  if COMM_PTYPE_PRIVPEER_DN42 ~ bgp_large_community then return false;
+  return true;
+}
+
+function community_ptype_allow_upstream(){
+  if COMM_PTYPE_TRANSIT_DN42 ~ bgp_large_community then return true;
+  if COMM_PTYPE_TRANSIT_IANA ~ bgp_large_community then return true;
+  return false;
+}
+
+function community_ptype_allow_privpeer(){
+  if COMM_PTYPE_DOWNSTREAM_DN42 ~ bgp_large_community then return true;
+  if COMM_PTYPE_DOWNSTREAM_IANA ~ bgp_large_community then return true;
+  return false;
+}
+
+function community_ptype_allow_ixpeer(){
+  if COMM_PTYPE_DOWNSTREAM_DN42 ~ bgp_large_community then return true;
+  if COMM_PTYPE_DOWNSTREAM_IANA ~ bgp_large_community then return true;
+  return false;
+}

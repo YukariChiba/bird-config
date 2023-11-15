@@ -1,0 +1,15 @@
+Peer Route Deliever Policy
+==================================================================================================
+  From       upstream    transit     downstream      priv peer     ix peer     self     unknown
+To
+           ---------------------------------------------------------------------------------------
+upstream   |      N          Y             N            N             N          Y          N
+
+transit    |      Y          Y             Y            N             N          Y          Y
+
+downstream |      Y          Y             Y       Y (Normally)  Y (Normally)    Y          Y
+
+priv peer  |      N          N      Y (Normally)   N (Normally)       N          Y          N
+
+ix peer    |      N          N      Y (Normally)   N (Normally)       N          Y          N
+

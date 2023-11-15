@@ -1,0 +1,36 @@
+function kernel_filter_chnroute() {    
+    if source = RTS_STATIC && net = 0.0.0.0/0 then reject;
+    if source = RTS_STATIC && net = ::/0 then reject;
+    if net.type = NET_IP4 then {
+        if !is_valid_net() then reject;
+        if CHNROUTEIF != "" then ifname = CHNROUTEIF;
+        if CHNROUTEGW != 0.0.0.0 then gw = CHNROUTEGW;
+    }
+    if net.type = NET_IP6 then {
+        if !is_valid_net() then reject;
+        ifname = CHNROUTEIF;
+        if CHNROUTEIF != "" then ifname = CHNROUTEIF;
+        if CHNROUTEGW6 != :: then gw = CHNROUTEGW6;
+    }
+    accept;
+}
+
+template kernel tpl_kernel_chnroute_4 {
+  scan time 20;
+  kernel table KERNEL_CHNROUTE_TABLE;
+  ipv4 {
+    table chnroute4; 
+    import none;
+    export where kernel_filter_chnroute();
+  };
+}
+
+template kernel tpl_kernel_chnroute_6 {
+  scan time 20;
+  kernel table KERNEL_CHNROUTE_TABLE;
+  ipv6 {
+    table chnroute6;
+    import none;
+    export where kernel_filter_chnroute();
+  };
+};

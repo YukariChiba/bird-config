@@ -1,0 +1,13 @@
+protocol babel babel_main {
+  ipv4 { 
+    table igptable4;
+    import all;
+    export where (source = RTS_DEVICE) || (source = RTS_BABEL);
+  };
+  ipv6 sadr {
+    table igptable6;
+    import all;
+    export where (source = RTS_DEVICE) || (source = RTS_BABEL);
+  };
+  interface "#######";
+}

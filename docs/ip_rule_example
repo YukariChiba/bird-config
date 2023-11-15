@@ -1,0 +1,11 @@
+0:      from all lookup local
+2:      from all fwmark 0x533 lookup main
+3:      from all lookup main suppress_prefixlength 0
+5:      from all lookup igp
+20:     from all lookup chnroute suppress_prefixlength 0
+25:     from all lookup bgp.dn42 suppress_prefixlength 0
+25:     from all lookup bgp.iana suppress_prefixlength 0
+30:	from all lookup bgp.iana
+100:    from all lookup block
+32766:  from all lookup main
+32767:  from all lookup default

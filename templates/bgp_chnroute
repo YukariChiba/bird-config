@@ -1,0 +1,10 @@
+template bgp tpl_bgp_chnroute {
+  local as OWNAS42;
+  multihop;
+  hold time 3600;
+  graceful restart;
+  graceful restart time 14400;
+  ipv4 { import all; export none; table chnroute4; };
+  ipv6 { import all; export none; table chnroute6; };
+}
+

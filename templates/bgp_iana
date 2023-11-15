@@ -1,0 +1,82 @@
+template bgp tpl_bgp_iana_base {
+  local as OWNAS;
+  path metric 1;
+  direct;
+  ipv4 { table bgpianatable4; import none; export none; };
+  ipv6 { table bgpianatable6; import none; export none; };
+}
+
+template bgp tpl_bgp_iana_downstream_4 from tpl_bgp_iana_base {
+  ipv4 {
+    import where iana_downstream_import_filter();
+    export where iana_downstream_export_filter();
+  };
+}
+
+template bgp tpl_bgp_iana_downstream_6 from tpl_bgp_iana_base {
+  ipv6 {
+    import where iana_downstream_import_filter();
+    export where iana_downstream_export_filter();
+  };
+}
+ 
+template bgp tpl_bgp_iana_downstream from tpl_bgp_iana_base {
+  ipv4 {
+    import where iana_downstream_import_filter();
+    export where iana_downstream_export_filter();
+  };
+  ipv6 {
+    import where iana_downstream_import_filter();
+    export where iana_downstream_export_filter();
+  };
+}
+template bgp tpl_bgp_iana_peer_4 from tpl_bgp_iana_base {
+  ipv4 {
+    import where iana_peer_import_filter();
+    export where iana_peer_export_filter();
+  };
+}
+
+template bgp tpl_bgp_iana_peer_6 from tpl_bgp_iana_base {
+  ipv6 {
+    import where iana_peer_import_filter();
+    export where iana_peer_export_filter();
+  };
+}
+
+template bgp tpl_bgp_iana_peer from tpl_bgp_iana_base {
+  ipv4 {
+    import where iana_peer_import_filter();
+    export where iana_peer_export_filter();
+  };
+  ipv6 {
+    import where iana_peer_import_filter();
+    export where iana_peer_export_filter();
+  };
+}
+
+template bgp tpl_bgp_iana_transit from tpl_bgp_iana_base {
+  ipv4 {  
+    import where iana_import_filter();
+    export where iana_export_filter();
+  };
+  ipv6 {
+    import where iana_import_filter();
+    export where iana_export_filter();
+  };
+}
+
+template bgp tpl_bgp_iana_transit_4 from tpl_bgp_iana_base {
+  ipv4 {
+    import where iana_import_filter();
+    export where iana_export_filter();
+  };
+}
+
+template bgp tpl_bgp_iana_transit_6 from tpl_bgp_iana_base {
+  ipv6 {
+    import where iana_import_filter();
+    export where iana_export_filter();
+  };
+}
+

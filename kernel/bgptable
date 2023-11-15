@@ -1,0 +1,59 @@
+protocol kernel kernel_bgptable_iana_4 {
+  scan time 20;
+  kernel table KERNEL_BGP_IANA_TABLE;
+  ipv4 {
+    table bgpianatable4;
+    import none;
+    export where kernel_bgp_filter();
+  };
+}
+
+protocol kernel kernel_bgptable_iana_6 {
+  scan time 20;
+  kernel table KERNEL_BGP_IANA_TABLE;
+  ipv6 {
+    table bgpianatable6;
+    import none;
+    export where kernel_bgp_filter();
+  };
+};
+
+protocol kernel kernel_bgptable_dn42_4 {
+  scan time 20;
+  kernel table KERNEL_BGP_DN42_TABLE;
+  ipv4 {
+    table bgpdn42table4;
+    import none;
+    export where kernel_bgp_filter();
+  };
+}
+
+protocol kernel kernel_bgptable_dn42_6 {
+  scan time 20;
+  kernel table KERNEL_BGP_DN42_TABLE;
+  ipv6 {
+    table bgpdn42table6;
+    import none;
+    export where kernel_bgp_filter();
+  };
+};
+
+protocol kernel kernel_bgptable_mcast_dn42_4 {
+  scan time 20;
+  kernel table KERNEL_BGP_DN42_MCAST_TABLE;
+  ipv4 {
+    table bgpdn42mcasttable4;
+    import none;
+    export where kernel_bgp_filter();
+  };
+}
+
+protocol kernel kernel_bgptable_mcast_dn42_6 {
+  scan time 20;
+  kernel table KERNEL_BGP_DN42_MCAST_TABLE;
+  ipv6 {
+    table bgpdn42mcasttable6;
+    import none;
+    export where kernel_bgp_filter();
+  };
+};

@@ -1,0 +1,27 @@
+protocol static static_dn42_local_4 {
+  #route ###### reject;
+  ipv4 { import all; export none; table bgpdn42table4; };
+};
+
+protocol static static_dn42_local_6 {
+  #route ###### reject;
+  ipv6 { import all; export none; table bgpdn42table6; };
+};
+
+protocol static static_iana_local_6 {
+  #route ###### reject;
+  ipv6 { import all; export none; table bgpianatable6; };
+};
+
+protocol static static_chnroute_4 {
+  ipv4 { table chnroute4; };
+  #route ####### unreachable;
+}
+
+protocol static static_main_6 {
+  ipv6;
+}
+
+protocol static static_main_4 {
+  ipv4;
+}
