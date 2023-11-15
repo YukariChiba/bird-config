@@ -1,0 +1,30 @@
+template bgp ibgp_dn42 from tpl_bgp_dn42_internal {
+  multihop;
+  password "demo";
+}
+template bgp ibgp_iana from tpl_bgp_iana_internal {
+  multihop;
+  password "demo";
+}
+
+protocol bgp ibgp_dn42_sol1_kr from ibgp_dn42 {
+  disabled;
+  neighbor fd00:1926:817:a:: port 1179 as OWNAS42;
+};
+protocol bgp ibgp_dn42_lax1_us from ibgp_dn42 {
+  neighbor fd00:1926:817:5:: port 1179 as OWNAS42;
+};
+protocol bgp ibgp_dn42_fra1_de from ibgp_dn42 {
+  neighbor fd00:1926:817:16:: port 1179 as OWNAS42;
+};
+
+protocol bgp ibgp_iana_sol1_kr from ibgp_iana {
+  disabled;
+  neighbor 2a0c:b641:7af:a:: port 2179 as OWNAS;
+};
+protocol bgp ibgp_iana_lax1_us from ibgp_iana {
+  neighbor 2a0c:b641:7af:5:: port 2179 as OWNAS;
+};
+protocol bgp ibgp_iana_fra1_de from ibgp_iana {
+  neighbor 2a0c:b641:7af:16:: port 2179 as OWNAS;
+};

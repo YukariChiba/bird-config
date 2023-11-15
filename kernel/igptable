@@ -1,6 +1,6 @@
 protocol direct direct_igptable {
   ipv4 { table igptable4; };
-  ipv6 sadr { table igptable6; };
+  ipv6 sadr { table igpsadrtable6; };
   interface "st";       
 }
 
@@ -17,9 +17,10 @@ protocol kernel kernel_igptable_4 {
 protocol kernel kernel_igptable_6 {
   scan time 20;
   kernel table KERNEL_IGP_TABLE;
-  ipv6 sadr {
+  ipv6 {
     table igptable6;
     import none;
     export where kernel_igp_filter();
   };
 };
+

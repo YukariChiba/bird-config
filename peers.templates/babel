@@ -4,10 +4,21 @@ protocol babel babel_main {
     import all;
     export where (source = RTS_DEVICE) || (source = RTS_BABEL);
   };
-  ipv6 sadr {
+  ipv6 {
     table igptable6;
     import all;
     export where (source = RTS_DEVICE) || (source = RTS_BABEL);
   };
-  interface "#######";
+  interface "wgi-*";
+}
+
+protocol babel babel_sadr {
+  ipv6 sadr {
+    table igpsadrtable6;
+    import all;
+    export where (source = RTS_DEVICE) || (source = RTS_BABEL);
+  };
+  interface "wgi-*" {
+    port 7696;
+  };
 }
