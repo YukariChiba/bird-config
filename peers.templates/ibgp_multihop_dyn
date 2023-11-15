@@ -1,0 +1,9 @@
+protocol bgp ibgp_dn42_dyn from tpl_bgp_dn42_internal_dyn {
+  neighbor range fd00:1926:817::/48 port 1179 as OWNAS42;
+  password "demo";
+};
+
+protocol bgp ibgp_iana_dyn from tpl_bgp_iana_internal_dyn {
+  neighbor range 2a0c:b641:7af::/48 port 2179 as OWNAS;
+  password "demo";
+};

@@ -1,17 +1,27 @@
 template bgp tpl_bgp_dn42_internal {
   local as OWNAS42;
   path metric 1;
-  direct;
   ipv4 { table bgpdn42table4; import where ibgp_import_filter(); export where ibgp_export_filter(); };
   ipv6 { table bgpdn42table6; import where ibgp_import_filter(); export where ibgp_export_filter(); };
   ipv4 multicast { table bgpdn42mcasttable4; import where ibgp_import_filter(); export where ibgp_export_filter(); };
   ipv6 multicast { table bgpdn42mcasttable6; import where ibgp_import_filter(); export where ibgp_export_filter(); };
 }
 
+template bgp tpl_bgp_dn42_internal_dyn from tpl_bgp_dn42_internal {
+  strict bind;
+  multihop;
+  source address OWNIP42v6;
+}
+
 template bgp tpl_bgp_iana_internal {
   local as OWNAS;
   path metric 1;
-  direct;
   ipv4 { table bgpianatable4; import where ibgp_import_filter(); export where ibgp_export_filter(); };
   ipv6 { table bgpianatable6; import where ibgp_import_filter(); export where ibgp_export_filter(); };
+}
+
+template bgp tpl_bgp_iana_internal_dyn from tpl_bgp_iana_internal {
+  strict bind;
+  multihop;
+  source address OWNIPv6; 
 }
