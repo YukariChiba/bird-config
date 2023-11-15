@@ -8,7 +8,7 @@ template bgp tpl_bgp_dn42_internal {
 }
 
 template bgp tpl_bgp_dn42_internal_dyn from tpl_bgp_dn42_internal {
-  strict bind;
+  #strict bind;
   multihop;
   source address OWNIP42v6;
   dynamic name "dynbgp_dn42_";
@@ -22,7 +22,7 @@ template bgp tpl_bgp_iana_internal {
 }
 
 template bgp tpl_bgp_iana_internal_dyn from tpl_bgp_iana_internal {
-  strict bind;
+  #strict bind;
   multihop;
   source address OWNIPv6; 
   dynamic name "dynbgp_iana_";
