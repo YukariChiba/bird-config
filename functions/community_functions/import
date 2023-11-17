@@ -1,0 +1,24 @@
+function community_import(string arg_network; string arg_peer_type){
+  if arg_network = "dn42" then {
+    if COMM_PREF_100_DN42 ~ bgp_large_community then bgp_local_pref = 100;
+    if COMM_PREF_200_DN42 ~ bgp_large_community then bgp_local_pref = 200;
+    if COMM_PREF_0_DN42 ~ bgp_large_community then bgp_local_pref = 0;
+    if arg_peer_type = "downstream" then bgp_large_community.add(COMM_PTYPE_DOWNSTREAM_DN42);
+    if arg_peer_type = "transit" then bgp_large_community.add(COMM_PTYPE_TRANSIT_DN42);
+    if arg_peer_type = "privtransit" then bgp_large_community.add(COMM_PTYPE_PRIVTRANSIT_DN42);
+    if arg_peer_type = "full" then bgp_large_community.add(COMM_PTYPE_FULL_DN42);
+    if arg_peer_type = "peer" then bgp_large_community.add(COMM_PTYPE_PEER_DN42);
+    if arg_peer_type = "privpeer" then bgp_large_community.add(COMM_PTYPE_PRIVPEER_DN42);
+  }
+  if arg_network = "iana" then {
+    if COMM_PREF_100_IANA ~ bgp_large_community then bgp_local_pref = 100;
+    if COMM_PREF_200_IANA ~ bgp_large_community then bgp_local_pref = 200;
+    if COMM_PREF_0_IANA ~ bgp_large_community then bgp_local_pref = 0;
+    if arg_peer_type = "downstream" then bgp_large_community.add(COMM_PTYPE_DOWNSTREAM_IANA);
+    if arg_peer_type = "transit" then bgp_large_community.add(COMM_PTYPE_TRANSIT_IANA);
+    if arg_peer_type = "privtransit" then bgp_large_community.add(COMM_PTYPE_PRIVTRANSIT_IANA);
+    if arg_peer_type = "full" then bgp_large_community.add(COMM_PTYPE_FULL_IANA);
+    if arg_peer_type = "peer" then bgp_large_community.add(COMM_PTYPE_PEER_IANA);
+    if arg_peer_type = "privpeer" then bgp_large_community.add(COMM_PTYPE_PRIVPEER_IANA);
+  }
+}

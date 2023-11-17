@@ -1,0 +1,60 @@
+function community_export(string arg_network){
+  if arg_network = "dn42" then {
+    bgp_large_community.delete(COMM_PTYPE_ALL_DN42);
+    if COMM_PREPEND_1_DN42 ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS42);
+    }
+    if COMM_PREPEND_2_DN42 ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+    }
+    if COMM_PREPEND_3_DN42 ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+    }
+    if COMM_PREPEND_4_DN42 ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+    }
+    if COMM_PREPEND_5_DN42 ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+      bgp_path.prepend(OWNAS42);
+    }
+    bgp_large_community.delete(COMM_PREPEND_ALL_DN42);
+  }
+  if arg_network = "iana" then {
+    bgp_large_community.delete(COMM_PTYPE_ALL_IANA);
+    if COMM_PREPEND_1_IANA ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS);
+    }
+    if COMM_PREPEND_2_IANA ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+    }
+    if COMM_PREPEND_3_IANA ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+    }
+    if COMM_PREPEND_4_IANA ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+    }
+    if COMM_PREPEND_5_IANA ~ bgp_large_community then {
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+      bgp_path.prepend(OWNAS);
+    }
+    bgp_large_community.delete(COMM_PREPEND_ALL_IANA);
+  }
+}

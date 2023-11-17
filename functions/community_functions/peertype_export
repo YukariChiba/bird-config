@@ -1,0 +1,19 @@
+function community_ptype_allow(string arg_peer_type){
+  if arg_peer_type = "collector" then return true;
+  if arg_peer_type = "downstream" || arg_peer_type = "full" then {
+    if COMM_PTYPE_PRIVTRANSIT_DN42 ~ bgp_large_community then return false;
+    if COMM_PTYPE_PRIVTRANSIT_IANA ~ bgp_large_community then return false;
+    if COMM_PTYPE_PRIVPEER_DN42 ~ bgp_large_community then return false;
+    if COMM_PTYPE_PRIVPEER_IANA ~ bgp_large_community then return false;
+    return true;
+  }
+  if arg_peer_type = "transit" || arg_peer_type = "peer" then {
+    if COMM_PTYPE_DOWNSTREAM_DN42 ~ bgp_large_community then return true;
+    if COMM_PTYPE_DOWNSTREAM_IANA ~ bgp_large_community then return true;
+    return false;
+  }
+  if arg_peer_type = "privpeer" || arg_peer_type = "privtransit" then {
+    return false;
+  }
+  return false;
+}
