@@ -1,27 +1,34 @@
-define COMM_PTYPE_DOWNSTREAM_IANA = (OWNAS, 4, 1);
-define COMM_PTYPE_DOWNSTREAM_DN42 = (OWNAS42, 4, 1);
-define COMM_PTYPE_UPSTREAM_IANA = (OWNAS, 4, 2);
-define COMM_PTYPE_UPSTREAM_DN42 = (OWNAS42, 4, 2);
-define COMM_PTYPE_PRIVPEER_IANA = (OWNAS, 4, 3);
-define COMM_PTYPE_PRIVPEER_DN42 = (OWNAS42, 4, 3);
-define COMM_PTYPE_IXPEER_IANA = (OWNAS, 4, 4);
-define COMM_PTYPE_IXPEER_DN42 = (OWNAS42, 4, 4);
-define COMM_PTYPE_TRANSIT_IANA = (OWNAS, 4, 5);
-define COMM_PTYPE_TRANSIT_DN42 = (OWNAS42, 4, 5);
+define COMM_PTYPE_FULL_IANA = (OWNAS, 4, 10);
+define COMM_PTYPE_FULL_DN42 = (OWNAS42, 4, 10);
+
+define COMM_PTYPE_TRANSIT_IANA = (OWNAS, 4, 20);
+define COMM_PTYPE_TRANSIT_DN42 = (OWNAS42, 4, 20);
+define COMM_PTYPE_PRIVTRANSIT_IANA = (OWNAS, 4, 21);
+define COMM_PTYPE_PRIVTRANSIT_DN42 = (OWNAS42, 4, 21);
+
+define COMM_PTYPE_DOWNSTREAM_IANA = (OWNAS, 4, 30);
+define COMM_PTYPE_DOWNSTREAM_DN42 = (OWNAS42, 4, 30);
+
+define COMM_PTYPE_PEER_IANA = (OWNAS, 4, 40);
+define COMM_PTYPE_PEER_DN42 = (OWNAS42, 4, 40);
+define COMM_PTYPE_PRIVPEER_IANA = (OWNAS, 4, 41);
+define COMM_PTYPE_PRIVPEER_DN42 = (OWNAS42, 4, 41);
 
 define COMM_PTYPE_ALL_DN42 = [
-  COMM_PTYPE_DOWNSTREAM_DN42,
-  COMM_PTYPE_UPSTREAM_DN42,
+  COMM_PTYPE_FULL_DN42,
+  COMM_PTYPE_TRANSIT_DN42,
+  COMM_PTYPE_PRIVTRANSIT_DN42,
   COMM_PTYPE_PRIVPEER_DN42,
-  COMM_PTYPE_IXPEER_DN42,
-  COMM_PTYPE_TRANSIT_DN42
+  COMM_PTYPE_PEER_DN42,
+  COMM_PTYPE_DOWNSTREAM_DN42
 ];
 define COMM_PTYPE_ALL_IANA = [
-  COMM_PTYPE_DOWNSTREAM_IANA,
-  COMM_PTYPE_UPSTREAM_IANA,
+  COMM_PTYPE_FULL_IANA,
+  COMM_PTYPE_TRANSIT_IANA,
+  COMM_PTYPE_PRIVTRANSIT_IANA,
   COMM_PTYPE_PRIVPEER_IANA,
-  COMM_PTYPE_IXPEER_IANA,
-  COMM_PTYPE_TRANSIT_IANA
+  COMM_PTYPE_PEER_IANA,
+  COMM_PTYPE_DOWNSTREAM_IANA
 ];
 
 define COMM_PREF_100_IANA = (OWNAS, 2, 1);
@@ -49,8 +56,9 @@ function community_import(string arg_network; string arg_peer_type){
     if COMM_PREF_0_DN42 ~ bgp_large_community then bgp_local_pref = 0;
     if arg_peer_type = "downstream" then bgp_large_community.add(COMM_PTYPE_DOWNSTREAM_DN42);
     if arg_peer_type = "transit" then bgp_large_community.add(COMM_PTYPE_TRANSIT_DN42);
-    if arg_peer_type = "upstream" then bgp_large_community.add(COMM_PTYPE_UPSTREAM_DN42);
-    if arg_peer_type = "ixpeer" then bgp_large_community.add(COMM_PTYPE_IXPEER_DN42);
+    if arg_peer_type = "privtransit" then bgp_large_community.add(COMM_PTYPE_PRIVTRANSIT_DN42);
+    if arg_peer_type = "full" then bgp_large_community.add(COMM_PTYPE_FULL_DN42);
+    if arg_peer_type = "peer" then bgp_large_community.add(COMM_PTYPE_PEER_DN42);
     if arg_peer_type = "privpeer" then bgp_large_community.add(COMM_PTYPE_PRIVPEER_DN42);
   }
   if arg_network = "iana" then {
@@ -59,8 +67,9 @@ function community_import(string arg_network; string arg_peer_type){
     if COMM_PREF_0_IANA ~ bgp_large_community then bgp_local_pref = 0;
     if arg_peer_type = "downstream" then bgp_large_community.add(COMM_PTYPE_DOWNSTREAM_IANA);
     if arg_peer_type = "transit" then bgp_large_community.add(COMM_PTYPE_TRANSIT_IANA);
-    if arg_peer_type = "upstream" then bgp_large_community.add(COMM_PTYPE_UPSTREAM_IANA);
-    if arg_peer_type = "ixpeer" then bgp_large_community.add(COMM_PTYPE_IXPEER_IANA);
+    if arg_peer_type = "privtransit" then bgp_large_community.add(COMM_PTYPE_PRIVTRANSIT_IANA);
+    if arg_peer_type = "full" then bgp_large_community.add(COMM_PTYPE_FULL_IANA);
+    if arg_peer_type = "peer" then bgp_large_community.add(COMM_PTYPE_PEER_IANA);
     if arg_peer_type = "privpeer" then bgp_large_community.add(COMM_PTYPE_PRIVPEER_IANA);
   }
 }
@@ -72,29 +81,19 @@ function community_export(string arg_network){
 
 function community_ptype_allow(string arg_peer_type){
   if arg_peer_type = "collector" then return true;
-  if arg_peer_type = "downstream" then {
+  if arg_peer_type = "downstream" || arg_peer_type = "full" then {
+    if COMM_PTYPE_PRIVTRANSIT_DN42 ~ bgp_large_community then return false;
+    if COMM_PTYPE_PRIVTRANSIT_IANA ~ bgp_large_community then return false;
+    if COMM_PTYPE_PRIVPEER_DN42 ~ bgp_large_community then return false;
+    if COMM_PTYPE_PRIVPEER_IANA ~ bgp_large_community then return false;
     return true;
   }
-  if arg_peer_type = "upstream" then {
-    if COMM_PTYPE_TRANSIT_DN42 ~ bgp_large_community then return true;
-    if COMM_PTYPE_TRANSIT_IANA ~ bgp_large_community then return true;
-    return false;    
-  }
-  if arg_peer_type = "transit" then {
-    if COMM_PTYPE_IXPEER_DN42 ~ bgp_large_community then return false;
-    if COMM_PTYPE_IXPEER_IANA ~ bgp_large_community then return false;
-    if COMM_PTYPE_PRIVPEER_DN42 ~ bgp_large_community then return false;
-    if COMM_PTYPE_PRIVPEER_DN42 ~ bgp_large_community then return false;
-    return true;
-  }
-  if arg_peer_type = "privpeer" then {
+  if arg_peer_type = "transit" || arg_peer_type = "peer" then {
     if COMM_PTYPE_DOWNSTREAM_DN42 ~ bgp_large_community then return true;
     if COMM_PTYPE_DOWNSTREAM_IANA ~ bgp_large_community then return true;
     return false;
   }
-  if arg_peer_type = "ixpeer" then {
-    if COMM_PTYPE_DOWNSTREAM_DN42 ~ bgp_large_community then return true;
-    if COMM_PTYPE_DOWNSTREAM_IANA ~ bgp_large_community then return true;
+  if arg_peer_type = "privpeer" || arg_peer_type = "privtransit" then {
     return false;
   }
   return false;

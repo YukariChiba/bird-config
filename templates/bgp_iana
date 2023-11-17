@@ -18,15 +18,15 @@ template bgp tpl_bgp_iana_downstream from tpl_bgp_iana_base {
   };
 }
 
-template bgp tpl_bgp_iana_ixpeer from tpl_bgp_iana_base {
+template bgp tpl_bgp_iana_peer from tpl_bgp_iana_base {
   ipv4 {
     extended next hop;
-    import where bgp_import_filter("iana", "ixpeer");
-    export where bgp_export_filter("iana", "ixpeer");
+    import where bgp_import_filter("iana", "peer");
+    export where bgp_export_filter("iana", "peer");
   };
   ipv6 {
-    import where bgp_import_filter("iana", "ixpeer");
-    export where bgp_export_filter("iana", "ixpeer");
+    import where bgp_import_filter("iana", "peer");
+    export where bgp_export_filter("iana", "peer");
   };
 }
 
@@ -54,3 +54,14 @@ template bgp tpl_bgp_iana_transit from tpl_bgp_iana_base {
   };
 }
 
+template bgp tpl_bgp_iana_privtransit from tpl_bgp_iana_base {
+  ipv4 {
+    extended next hop;
+    import where bgp_import_filter("iana", "privtransit");
+    export where bgp_export_filter("iana", "privtransit");
+  };
+  ipv6 {
+    import where bgp_import_filter("iana", "privtransit");
+    export where bgp_export_filter("iana", "privtransit");
+  };
+}

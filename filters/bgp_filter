@@ -17,7 +17,7 @@ function bgp_export_filter(string arg_network; string arg_peer_type) {
 }
 
 function bgp_import_filter(string arg_network; string arg_peer_type) {
-  if arg_peer_type = "privpeer" || arg_peer_type = "ixpeer" then {
+  if arg_peer_type = "privpeer" then {
     if bgp_path.len != 1 then {
       return false;
     }

@@ -1,15 +1,20 @@
 Peer Route Deliever Policy
-==================================================================================================
-  From       upstream    transit     downstream      priv peer     ix peer     self     unknown
+=======================================================================================================================
+  From              full     priv transit  transit     downstream      priv peer      peer       self     unknown
 To
-           ---------------------------------------------------------------------------------------
-upstream   |      N          Y             N            N             N          Y          N
+               --------------------------------------------------------------------------------------------------------
 
-transit    |      Y          Y             Y            N             N          Y          Y
+full           |      Y           N           Y             Y            N              Y          Y          Y
 
-downstream |      Y          Y             Y       Y (Normally)  Y (Normally)    Y          Y
+priv transit   |      N           N           N             N            N              N          Y          N
 
-priv peer  |      N          N      Y (Normally)   N (Normally)       N          Y          N
+transit        |      N           N           N             Y            N              N          Y          Y
 
-ix peer    |      N          N      Y (Normally)   N (Normally)       N          Y          N
+downstream     |      Y           N           Y             Y        N (Normally)  Y (Normally)    Y          Y
+
+priv peer      |      N           N           N             N        N (Normally)       N    Y (no-export)    N
+
+peer           |      N           N           N         Y (Normally) N (Normally)       N          Y          N
+
+self           |      Y           Y           Y             Y        Y (path 1)         Y          -          Y
 

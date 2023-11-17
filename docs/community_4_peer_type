@@ -1,3 +1,8 @@
 # Community	Peer Type
 
- (-, 4, 1)	From downstream
+ (-, 4, 10)	Full Table
+ (-, 4, 20)     Transit
+ (-, 4, 21)     Private Transit
+ (-, 4, 30)     Downstream
+ (-, 4, 40)     Peer
+ (-, 4, 41)     Private Peer
