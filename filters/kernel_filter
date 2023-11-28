@@ -9,7 +9,7 @@ function kernel_base_filter() {
           krt_prefsrc = OWNIP42v6;
         }
         else {
-          krt_prefsrc = OWNIPv6;
+          if net != ::/0 then krt_prefsrc = OWNIPv6;
         }
     }
 }
