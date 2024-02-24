@@ -1,11 +1,13 @@
-function ibgp_import_filter() {
+function ibgp_import_filter(string arg_network) {
+  if ! is_valid_net(arg_network) then return false;
   if source ~ [ RTS_BGP, RTS_STATIC ] then {
     return true;
   }
   return false;
 };
 
-function ibgp_export_filter() {
+function ibgp_export_filter(string arg_network) {
+  if ! is_valid_net(arg_network) then return false;
   if source ~ [ RTS_BGP, RTS_STATIC ] then { 
     return true; 
   }

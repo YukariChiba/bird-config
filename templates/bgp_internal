@@ -1,10 +1,10 @@
 template bgp tpl_bgp_dn42_internal {
   local port 1179 as OWNAS42;
   path metric 1;
-  ipv4 { next hop self ebgp; igp table igptable4; table bgpdn42table4; import where ibgp_import_filter(); export where ibgp_export_filter(); };
-  ipv6 { next hop self ebgp; igp table igptable6; table bgpdn42table6; import where ibgp_import_filter(); export where ibgp_export_filter(); };
-  ipv4 multicast { next hop self ebgp; table bgpdn42mcasttable4; import where ibgp_import_filter(); export where ibgp_export_filter(); };
-  ipv6 multicast { next hop self ebgp; table bgpdn42mcasttable6; import where ibgp_import_filter(); export where ibgp_export_filter(); };
+  ipv4 { next hop self ebgp; igp table igptable4; table bgpdn42table4; import where ibgp_import_filter("dn42"); export where ibgp_export_filter("dn42"); };
+  ipv6 { next hop self ebgp; igp table igptable6; table bgpdn42table6; import where ibgp_import_filter("dn42"); export where ibgp_export_filter("dn42"); };
+  ipv4 multicast { next hop self ebgp; table bgpdn42mcasttable4; import where ibgp_import_filter("dn42"); export where ibgp_export_filter("dn42"); };
+  ipv6 multicast { next hop self ebgp; table bgpdn42mcasttable6; import where ibgp_import_filter("dn42"); export where ibgp_export_filter("dn42"); };
 }
 
 template bgp tpl_bgp_dn42_internal_dyn from tpl_bgp_dn42_internal {
@@ -17,8 +17,8 @@ template bgp tpl_bgp_dn42_internal_dyn from tpl_bgp_dn42_internal {
 template bgp tpl_bgp_iana_internal {
   local port 2179 as OWNAS;
   path metric 1;
-  ipv4 { next hop self ebgp; igp table igptable4; table bgpianatable4; import where ibgp_import_filter(); export where ibgp_export_filter(); };
-  ipv6 { next hop self ebgp; igp table igptable6; table bgpianatable6; import where ibgp_import_filter(); export where ibgp_export_filter(); };
+  ipv4 { next hop self ebgp; igp table igptable4; table bgpianatable4; import where ibgp_import_filter("iana"); export where ibgp_export_filter("iana"); };
+  ipv6 { next hop self ebgp; igp table igptable6; table bgpianatable6; import where ibgp_import_filter("iana"); export where ibgp_export_filter("iana"); };
 }
 
 template bgp tpl_bgp_iana_internal_dyn from tpl_bgp_iana_internal {
