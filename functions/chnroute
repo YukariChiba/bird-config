@@ -31,7 +31,8 @@ define CHINA_ASNS = [
     24355,  #CERNET2 IX at University of Electronic Science and Technology of China
     56046,  # NanJing XinFeng
     24424,  # Google CN
-    24355   # UESTC
+    24355,   # UESTC
+    58593   # Shanghai Blue Cloud
 ];
 
 define CHINA_ROUTES = [
