@@ -48,4 +48,5 @@ function is_chnroute(){
   if net ~ CHINA_ROUTES then {
     return true;
   }
+  return false;
 }
