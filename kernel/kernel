@@ -17,3 +17,13 @@ protocol kernel kernel_mergedtable6 {
     export all;
   };
 }
+
+protocol kernel kernel_mergedsadrtable6 {
+  scan time 20;
+  kernel table KERNEL_BIRD_TABLE;
+  ipv6 sadr {
+    table mergedsadrtable6;
+    import none;
+    export all;
+  };
+}

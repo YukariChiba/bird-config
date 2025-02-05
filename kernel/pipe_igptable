@@ -17,3 +17,10 @@ protocol pipe pipe_igptable_6 {
   import none;
   export where kernel_igp_filter();
 };
+
+protocol pipe pipe_igpsadrtable_6 {
+  table igpsadrtable6;
+  peer table mergedsadrtable6;
+  import none;
+  export where kernel_igp_filter();
+}
