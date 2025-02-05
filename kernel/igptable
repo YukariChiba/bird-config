@@ -24,3 +24,12 @@ protocol kernel kernel_igptable_6 {
   };
 };
 
+protocol kernel kernel_igpsadrtable_6 {
+  scan time 20;
+  kernel table KERNEL_IGP_SADR_TABLE;
+  ipv6 sadr {
+    table igpsadrtable6;
+    import none;
+    export where kernel_igp_filter();
+  };
+}
