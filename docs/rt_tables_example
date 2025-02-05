@@ -8,6 +8,7 @@
 1	bgp.iana
 2	bgp.dn42
 4	chnroute
+5	igp.sadr
 6	igp
 10	bgp.dn42.mcast
 20	block
