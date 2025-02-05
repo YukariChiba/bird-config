@@ -1,4 +1,4 @@
-template bgp tpl_bgp_iana_base {
+template bgp tpl_bgp_iana_base from tpl_bgp_base {
   local as OWNAS;
   path metric 1;
   direct;

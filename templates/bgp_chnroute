@@ -1,4 +1,4 @@
-template bgp tpl_bgp_chnroute {
+template bgp tpl_bgp_chnroute from tpl_bgp_base {
   local as OWNAS42;
   multihop;
   hold time 3600;
@@ -7,4 +7,3 @@ template bgp tpl_bgp_chnroute {
   ipv4 { import all; export none; table chnroute4; };
   ipv6 { import all; export none; table chnroute6; };
 }
-

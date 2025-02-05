@@ -1,0 +1,19 @@
+protocol direct direct_igptable {
+  ipv4 { table igptable4; };
+  ipv6 { table igptable6; };
+  interface "st";
+}
+
+protocol pipe pipe_igptable_4 {
+  table igptable4;
+  peer table mergedtable4;
+  import none;
+  export where kernel_igp_filter();
+}
+
+protocol pipe pipe_igptable_6 {
+  table igptable6;
+  peer table mergedtable6;
+  import none;
+  export where kernel_igp_filter();
+};

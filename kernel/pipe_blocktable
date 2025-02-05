@@ -1,0 +1,35 @@
+protocol pipe pipe_blocktable_4 {
+  table blocktable4;
+  peer table mergedtable4;
+  import none;
+  export all;
+}
+
+protocol pipe pipe_blocktable_6 {
+  table blocktable6;
+  peer table mergedtable6;
+  import none;
+  export all;
+};
+
+protocol static static_block_iana_6 {
+  ipv6 { table blocktable6; };
+  route ::/0 unreachable;
+}
+
+protocol static static_block_iana_4 {
+  ipv4 { table blocktable4; };
+  route 0.0.0.0/0 unreachable;
+}
+
+protocol static static_block_dn42_4 {
+  ipv4 { table blocktable4; };
+  route 172.20.0.0/14 unreachable;
+  route 10.0.0.0/8 unreachable;
+  route 172.31.0.0/16 unreachable;
+}
+
+protocol static static_block_dn42_6 {
+  ipv6 { table blocktable6; };
+  route fd00::/8 unreachable;
+}

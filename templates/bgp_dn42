@@ -1,4 +1,4 @@
-template bgp tpl_bgp_dn42_base {
+template bgp tpl_bgp_dn42_base from tpl_bgp_base {
   local as OWNAS42;
   path metric 1;
   direct;
@@ -70,7 +70,7 @@ template bgp tpl_bgp_dn42_privpeer from tpl_bgp_dn42_base {
 }
 
 template bgp tpl_bgp_dn42_transit from tpl_bgp_dn42_base {
-  ipv4 {  
+  ipv4 {
     extended next hop;
     import where bgp_import_filter("dn42", "transit");
     export where bgp_export_filter("dn42", "transit");
@@ -91,7 +91,7 @@ template bgp tpl_bgp_dn42_transit from tpl_bgp_dn42_base {
 }
 
 template bgp tpl_bgp_dn42_privtransit from tpl_bgp_dn42_base {
-  ipv4 {  
+  ipv4 {
     extended next hop;
     import where bgp_import_filter("dn42", "privtransit");
     export where bgp_export_filter("dn42", "privtransit");
@@ -112,7 +112,7 @@ template bgp tpl_bgp_dn42_privtransit from tpl_bgp_dn42_base {
 }
 
 template bgp tpl_bgp_dn42_full from tpl_bgp_dn42_base {
-  ipv4 {  
+  ipv4 {
     extended next hop;
     import where bgp_import_filter("dn42", "full");
     export where bgp_export_filter("dn42", "full");
@@ -131,4 +131,3 @@ template bgp tpl_bgp_dn42_full from tpl_bgp_dn42_base {
     export where bgp_export_filter("dn42", "full");
   };
 }
-

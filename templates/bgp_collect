@@ -1,11 +1,11 @@
-template bgp tpl_bgp_dn42_collect {
+template bgp tpl_bgp_dn42_collect from tpl_bgp_base {
   local as OWNAS42;
   multihop;
   ipv4 { table bgpdn42table4; import none; export where bgp_export_filter("dn42", "collector"); };
   ipv6 { table bgpdn42table6; import none; export where bgp_export_filter("dn42", "collector"); };
 }
 
-template bgp tpl_bgp_iana_collect {
+template bgp tpl_bgp_iana_collect from tpl_bgp_base {
   local as OWNAS;
   multihop;
   ipv4 { table bgpdn42table4; import none; export where bgp_export_filter("iana", "collector"); };

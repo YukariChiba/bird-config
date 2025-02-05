@@ -1,0 +1,19 @@
+protocol kernel kernel_mergedtable4 {
+  scan time 20;
+  kernel table KERNEL_BIRD_TABLE;
+  ipv4 {
+    table mergedtable4;
+    import none;
+    export all;
+  };
+}
+
+protocol kernel kernel_mergedtable6 {
+  scan time 20;
+  kernel table KERNEL_BIRD_TABLE;
+  ipv6 {
+    table mergedtable6;
+    import none;
+    export all;
+  };
+}

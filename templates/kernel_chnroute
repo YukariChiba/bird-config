@@ -1,4 +1,4 @@
-function kernel_filter_chnroute() {    
+function kernel_filter_chnroute() {
     if source = RTS_STATIC && net = 0.0.0.0/0 then reject;
     if source = RTS_STATIC && net = ::/0 then reject;
     if net.type = NET_IP4 then {
@@ -15,22 +15,16 @@ function kernel_filter_chnroute() {
     accept;
 }
 
-template kernel tpl_kernel_chnroute_4 {
-  scan time 20;
-  kernel table KERNEL_CHNROUTE_TABLE;
-  ipv4 {
-    table chnroute4; 
-    import none;
-    export where kernel_filter_chnroute();
-  };
+template pipe tpl_pipe_chnroute_4 {
+  table chnroute4;
+  peer table mergedtable4;
+  import none;
+  export where kernel_filter_chnroute();
 }
 
-template kernel tpl_kernel_chnroute_6 {
-  scan time 20;
-  kernel table KERNEL_CHNROUTE_TABLE;
-  ipv6 {
-    table chnroute6;
-    import none;
-    export where kernel_filter_chnroute();
-  };
+template pipe tpl_pipe_chnroute_6 {
+  table chnroute6;
+  peer table mergedtable6;
+  import none;
+  export where kernel_filter_chnroute();
 };

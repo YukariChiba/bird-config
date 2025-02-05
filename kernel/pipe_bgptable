@@ -1,0 +1,41 @@
+protocol pipe pipe_bgptable_iana_4 {
+  table bgpianatable4;
+  peer table mergedtable4;
+  import none;
+  export where kernel_bgp_filter();
+}
+
+protocol pipe pipe_bgptable_iana_6 {
+  table bgpianatable6;
+  peer table mergedtable6;
+  import none;
+  export where kernel_bgp_filter();
+};
+
+protocol pipe pipe_bgptable_dn42_4 {
+  table bgpdn42table4;
+  peer table mergedtable4;
+  import none;
+  export where kernel_bgp_filter();
+}
+
+protocol pipe pipe_bgptable_dn42_6 {
+  table bgpdn42table6;
+  peer table mergedtable6;
+  import none;
+  export where kernel_bgp_filter();
+};
+
+protocol pipe pipe_bgptable_mcast_dn42_4 {
+  table bgpdn42mcasttable4;
+  peer table mergedtable4;
+  import none;
+  export where kernel_bgp_filter();
+}
+
+protocol pipe pipe_bgptable_mcast_dn42_6 {
+  table bgpdn42mcasttable6;
+  peer table mergedtable6;
+  import none;
+  export where kernel_bgp_filter();
+};

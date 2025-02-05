@@ -1,0 +1,3 @@
+template bgp tpl_bgp_base {
+  vrf "vrf-net";
+}
