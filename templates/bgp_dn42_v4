@@ -1,0 +1,134 @@
+template bgp tpl_bgp_dn42_base_withv4 {
+  local as OWNAS42;
+  path metric 1;
+  direct;
+  ipv4 { table bgpdn42table4; import none; export none; };
+  ipv6 { table bgpdn42table6; import none; export none; };
+  ipv4 multicast { table bgpdn42mcasttable4; import none; export none; };
+  ipv6 multicast { table bgpdn42mcasttable6; import none; export none; };
+}
+
+template bgp tpl_bgp_dn42_downstream_withv4 from tpl_bgp_dn42_base_withv4 {
+  ipv4 {
+    extended next hop;
+    import where bgp_import_filter("dn42", "downstream");
+    export where bgp_export_filter("dn42", "downstream");
+  };
+  ipv4 multicast {
+    extended next hop;
+    import where bgp_import_filter("dn42", "downstream");
+    export where bgp_export_filter("dn42", "downstream");
+  };
+  ipv6 {
+    import where bgp_import_filter("dn42", "downstream");
+    export where bgp_export_filter("dn42", "downstream");
+  };
+  ipv6 multicast {
+    import where bgp_import_filter("dn42", "downstream");
+    export where bgp_export_filter("dn42", "downstream");
+  };
+}
+template bgp tpl_bgp_dn42_peer_withv4 from tpl_bgp_dn42_base_withv4 {
+  ipv4 {
+    extended next hop;
+    import where bgp_import_filter("dn42", "peer");
+    export where bgp_export_filter("dn42", "peer");
+  };
+  ipv4 multicast {
+    extended next hop;
+    import where bgp_import_filter("dn42", "peer");
+    export where bgp_export_filter("dn42", "peer");
+  };
+  ipv6 {
+    import where bgp_import_filter("dn42", "peer");
+    export where bgp_export_filter("dn42", "peer");
+  };
+  ipv6 multicast {
+    import where bgp_import_filter("dn42", "peer");
+    export where bgp_export_filter("dn42", "peer");
+  };
+}
+
+template bgp tpl_bgp_dn42_privpeer_withv4 from tpl_bgp_dn42_base_withv4 {
+  ipv4 {
+    extended next hop;
+    import where bgp_import_filter("dn42", "privpeer");
+    export where bgp_export_filter("dn42", "privpeer");
+  };
+  ipv4 multicast {
+    import where bgp_import_filter("dn42", "privpeer");
+    export where bgp_export_filter("dn42", "privpeer");
+  };
+  ipv6 {
+    import where bgp_import_filter("dn42", "privpeer");
+    export where bgp_export_filter("dn42", "privpeer");
+  };
+  ipv6 multicast {
+    import where bgp_import_filter("dn42", "privpeer");
+    export where bgp_export_filter("dn42", "privpeer");
+  };
+}
+
+template bgp tpl_bgp_dn42_transit_withv4 from tpl_bgp_dn42_base_withv4 {
+  ipv4 {  
+    extended next hop;
+    import where bgp_import_filter("dn42", "transit");
+    export where bgp_export_filter("dn42", "transit");
+  };
+  ipv4 multicast {
+    extended next hop;
+    import where bgp_import_filter("dn42", "transit");
+    export where bgp_export_filter("dn42", "transit");
+  };
+  ipv6 {
+    import where bgp_import_filter("dn42", "transit");
+    export where bgp_export_filter("dn42", "transit");
+  };
+  ipv6 multicast {
+    import where bgp_import_filter("dn42", "transit");
+    export where bgp_export_filter("dn42", "transit");
+  };
+}
+
+template bgp tpl_bgp_dn42_privtransit_withv4 from tpl_bgp_dn42_base_withv4 {
+  ipv4 {  
+    extended next hop;
+    import where bgp_import_filter("dn42", "privtransit");
+    export where bgp_export_filter("dn42", "privtransit");
+  };
+  ipv4 multicast {
+    extended next hop;
+    import where bgp_import_filter("dn42", "privtransit");
+    export where bgp_export_filter("dn42", "privtransit");
+  };
+  ipv6 {
+    import where bgp_import_filter("dn42", "privtransit");
+    export where bgp_export_filter("dn42", "privtransit");
+  };
+  ipv6 multicast {
+    import where bgp_import_filter("dn42", "privtransit");
+    export where bgp_export_filter("dn42", "privtransit");
+  };
+}
+
+template bgp tpl_bgp_dn42_full_withv4 from tpl_bgp_dn42_base_withv4 {
+  ipv4 {  
+    extended next hop;
+    import where bgp_import_filter("dn42", "full");
+    export where bgp_export_filter("dn42", "full");
+  };
+  ipv4 multicast {
+    extended next hop;
+    import where bgp_import_filter("dn42", "full");
+    export where bgp_export_filter("dn42", "full");
+  };
+  ipv6 {
+    import where bgp_import_filter("dn42", "full");
+    export where bgp_export_filter("dn42", "full");
+  };
+  ipv6 multicast {
+    import where bgp_import_filter("dn42", "full");
+    export where bgp_export_filter("dn42", "full");
+  };
+}
+

@@ -2,23 +2,11 @@ template bgp tpl_bgp_dn42_base {
   local as OWNAS42;
   path metric 1;
   direct;
-  ipv4 { table bgpdn42table4; import none; export none; };
   ipv6 { table bgpdn42table6; import none; export none; };
-  ipv4 multicast { table bgpdn42mcasttable4; import none; export none; };
   ipv6 multicast { table bgpdn42mcasttable6; import none; export none; };
 }
 
 template bgp tpl_bgp_dn42_downstream from tpl_bgp_dn42_base {
-  ipv4 {
-    extended next hop;
-    import where bgp_import_filter("dn42", "downstream");
-    export where bgp_export_filter("dn42", "downstream");
-  };
-  ipv4 multicast {
-    extended next hop;
-    import where bgp_import_filter("dn42", "downstream");
-    export where bgp_export_filter("dn42", "downstream");
-  };
   ipv6 {
     import where bgp_import_filter("dn42", "downstream");
     export where bgp_export_filter("dn42", "downstream");
@@ -29,16 +17,6 @@ template bgp tpl_bgp_dn42_downstream from tpl_bgp_dn42_base {
   };
 }
 template bgp tpl_bgp_dn42_peer from tpl_bgp_dn42_base {
-  ipv4 {
-    extended next hop;
-    import where bgp_import_filter("dn42", "peer");
-    export where bgp_export_filter("dn42", "peer");
-  };
-  ipv4 multicast {
-    extended next hop;
-    import where bgp_import_filter("dn42", "peer");
-    export where bgp_export_filter("dn42", "peer");
-  };
   ipv6 {
     import where bgp_import_filter("dn42", "peer");
     export where bgp_export_filter("dn42", "peer");
@@ -50,15 +28,6 @@ template bgp tpl_bgp_dn42_peer from tpl_bgp_dn42_base {
 }
 
 template bgp tpl_bgp_dn42_privpeer from tpl_bgp_dn42_base {
-  ipv4 {
-    extended next hop;
-    import where bgp_import_filter("dn42", "privpeer");
-    export where bgp_export_filter("dn42", "privpeer");
-  };
-  ipv4 multicast {
-    import where bgp_import_filter("dn42", "privpeer");
-    export where bgp_export_filter("dn42", "privpeer");
-  };
   ipv6 {
     import where bgp_import_filter("dn42", "privpeer");
     export where bgp_export_filter("dn42", "privpeer");
@@ -70,16 +39,6 @@ template bgp tpl_bgp_dn42_privpeer from tpl_bgp_dn42_base {
 }
 
 template bgp tpl_bgp_dn42_transit from tpl_bgp_dn42_base {
-  ipv4 {  
-    extended next hop;
-    import where bgp_import_filter("dn42", "transit");
-    export where bgp_export_filter("dn42", "transit");
-  };
-  ipv4 multicast {
-    extended next hop;
-    import where bgp_import_filter("dn42", "transit");
-    export where bgp_export_filter("dn42", "transit");
-  };
   ipv6 {
     import where bgp_import_filter("dn42", "transit");
     export where bgp_export_filter("dn42", "transit");
@@ -91,16 +50,6 @@ template bgp tpl_bgp_dn42_transit from tpl_bgp_dn42_base {
 }
 
 template bgp tpl_bgp_dn42_privtransit from tpl_bgp_dn42_base {
-  ipv4 {  
-    extended next hop;
-    import where bgp_import_filter("dn42", "privtransit");
-    export where bgp_export_filter("dn42", "privtransit");
-  };
-  ipv4 multicast {
-    extended next hop;
-    import where bgp_import_filter("dn42", "privtransit");
-    export where bgp_export_filter("dn42", "privtransit");
-  };
   ipv6 {
     import where bgp_import_filter("dn42", "privtransit");
     export where bgp_export_filter("dn42", "privtransit");
@@ -112,16 +61,6 @@ template bgp tpl_bgp_dn42_privtransit from tpl_bgp_dn42_base {
 }
 
 template bgp tpl_bgp_dn42_full from tpl_bgp_dn42_base {
-  ipv4 {  
-    extended next hop;
-    import where bgp_import_filter("dn42", "full");
-    export where bgp_export_filter("dn42", "full");
-  };
-  ipv4 multicast {
-    extended next hop;
-    import where bgp_import_filter("dn42", "full");
-    export where bgp_export_filter("dn42", "full");
-  };
   ipv6 {
     import where bgp_import_filter("dn42", "full");
     export where bgp_export_filter("dn42", "full");
